@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+
+</head>
+<body>
+    <h1 id="display">00 : 00 : 00 : 000</h1>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <button id="reset">Reset</button>
+
+ 
+  
+   <script>
+    // select the h1 and btns
+     const h1 = document.querySelector("#display");
+     const btnStart = document.querySelector("#start");
+     const btnStop = document.querySelector("#stop");
+     const btnReset = document.querySelector("#reset")
+
+    //  declare le h,m,s,ms
+    let [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
+
+    // declare a varable with th value of null
+    let num = null;
+
+    // when user click btnStart 
+    btnStart.addEventListener("click", () =>{
+      if(num !== null){
+
+        clearInterval(interV);
+      }
+
+      interV = setInterval(timeDisplay, 10)
+    })
+
+    // when user click btnStop
+    btnStop.addEventListener("click", () =>{
+
+      clearInterval(interV);
+    })
+
+    // when user click btnReset
+    btnReset.addEventListener("click", () =>{
+
+      clearInterval(interV);
+
+      [milliseconds,seconds,minutes,hours] = [0, 0, 0, 0];
+
+      h1.innerHTML = "00 : 00 : 00 : 000";
+    })
+
+    // create a function  for setinterval
+    function timeDisplay(){
+      milliseconds += 10;
+      if(milliseconds == 1000){
+        milliseconds = 0;
+        seconds++;
+
+        if(seconds == 60){
+          seconds = 0;
+          minutes++;
+
+          if(minutes == 60){
+            minutes = 0;
+            hours++;
+
+          }
+        }
+      }
+
+      // if h,m,s is less than 10 then add "0", and if ms is less than 10 add "00" less than 100 add "0" 
+      let h = hours < 10 ? "0" + hours : hours;
+      let m = minutes < 10 ? "0" + minutes : minutes;
+      let s = seconds < 10 ? "0" + seconds : seconds;
+      let ms = milliseconds < 10 ? "00" + milliseconds :
+       milliseconds < 100 ? "0" + milliseconds : milliseconds
+
+      //  update the h1
+      h1.innerHTML = `${h} : ${m} : ${s} : ${ms}`;
+    }
+
+
+   </script>
+
+</body>
+</html>
+  
+
+
+
+
